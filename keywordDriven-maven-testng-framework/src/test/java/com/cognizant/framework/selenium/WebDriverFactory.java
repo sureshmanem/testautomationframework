@@ -173,7 +173,7 @@ public class WebDriverFactory {
 			desiredCapabilities.setPlatform(platform);
 		}
 
-		desiredCapabilities.setJavascriptEnabled(true); // Pre-requisite for
+		desiredCapabilities.setCapability("javascriptEnabled", true); // Pre-requisite for
 														// remote execution
 
 		URL url = getUrl(remoteUrl);
@@ -220,7 +220,10 @@ public class WebDriverFactory {
 		properties = Settings.getInstance();
 		System.setProperty("webdriver.chrome.driver", properties.getProperty("ChromeDriverPath"));
 
-		return new ChromeDriver(desiredCapabilities);
+		ChromeOptions chromeOptions = new ChromeOptions();
+		chromeOptions.merge(desiredCapabilities);
+
+		return new ChromeDriver(chromeOptions);
 	}
 
 	private static DesiredCapabilities getEmulatedChromeDriverCapabilities(String deviceName) {
@@ -248,7 +251,7 @@ public class WebDriverFactory {
 	 */
 	public static WebDriver getEmulatedRemoteWebDriver(String deviceName, String remoteUrl) {
 		DesiredCapabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceName);
-		desiredCapabilities.setJavascriptEnabled(true); // Pre-requisite for
+		desiredCapabilities.setCapability("javascriptEnabled", true); // Pre-requisite for
 														// remote execution
 
 		URL url = getUrl(remoteUrl);
@@ -316,7 +319,7 @@ public class WebDriverFactory {
 			String userAgent, String remoteUrl) {
 		DesiredCapabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceWidth, deviceHeight,
 				devicePixelRatio, userAgent);
-		desiredCapabilities.setJavascriptEnabled(true); // Pre-requisite for
+		desiredCapabilities.setCapability("javascriptEnabled", true); // Pre-requisite for
 														// remote execution
 
 		URL url = getUrl(remoteUrl);
