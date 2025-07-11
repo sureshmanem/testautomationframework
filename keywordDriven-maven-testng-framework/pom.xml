@@ -11,7 +11,7 @@
 	<url>http://maven.apache.org</url>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<selenium.standalone>3.141.59</selenium.standalone>
+		<selenium.standalone>4.20.0</selenium.standalone>
 		<java.client.appium>7.3.0</java.client.appium>
 		<org.testng>7.3.0</org.testng>
 		<source.and.target.JVM.version>11</source.and.target.JVM.version>
