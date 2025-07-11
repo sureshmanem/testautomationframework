@@ -213,7 +213,6 @@ public class WebDriverFactory {
 	 *                   Tools for a list of available devices)
 	 * @return The corresponding {@link ChromeDriver} object
 	 */
-	@SuppressWarnings("deprecation")
 	public static WebDriver getEmulatedWebDriver(String deviceName) {
 		DesiredCapabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceName);
 
@@ -233,7 +232,7 @@ public class WebDriverFactory {
 		Map<String, Object> chromeOptions = new HashMap<String, Object>();
 		chromeOptions.put("mobileEmulation", mobileEmulation);
 
-		DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
+		DesiredCapabilities desiredCapabilities = new DesiredCapabilities("chrome", "", Platform.ANY);
 		desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 
 		return desiredCapabilities;
@@ -269,7 +268,6 @@ public class WebDriverFactory {
 	 * @param userAgent        The user agent string
 	 * @return The corresponding {@link ChromeDriver} object
 	 */
-	@SuppressWarnings("deprecation")
 	public static WebDriver getEmulatedWebDriver(int deviceWidth, int deviceHeight, float devicePixelRatio,
 			String userAgent) {
 		DesiredCapabilities desiredCapabilities = getEmulatedChromeDriverCapabilities(deviceWidth, deviceHeight,
@@ -278,7 +276,9 @@ public class WebDriverFactory {
 		properties = Settings.getInstance();
 		System.setProperty("webdriver.chrome.driver", properties.getProperty("ChromeDriverPath"));
 
-		return new ChromeDriver(desiredCapabilities);
+		ChromeOptions chromeOptions = new ChromeOptions();
+		chromeOptions.merge(desiredCapabilities);
+		return new ChromeDriver(chromeOptions);
 	}
 
 	private static DesiredCapabilities getEmulatedChromeDriverCapabilities(int deviceWidth, int deviceHeight,
@@ -298,7 +298,7 @@ public class WebDriverFactory {
 		Map<String, Object> chromeOptions = new HashMap<String, Object>();
 		chromeOptions.put("mobileEmulation", mobileEmulation);
 
-		DesiredCapabilities desiredCapabilities = DesiredCapabilities.chrome();
+		DesiredCapabilities desiredCapabilities = new DesiredCapabilities("chrome", "", Platform.ANY);
 		desiredCapabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptions);
 		return desiredCapabilities;
 	}
