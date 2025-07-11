@@ -66,13 +66,16 @@ public class WebDriverFactory {
 		switch (browser) {
 		case CHROME:
 			// Takes the system proxy settings automatically
-			WebDriverManager.chromedriver().setup();
+			// Set chrome driver path in system property
+			System.setProperty("webdriver.chrome.driver", properties.getProperty("ChromeDriverPath"));
+			// WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			break;
 
 		case CHROME_HEADLESS:
 
-			WebDriverManager.chromedriver().setup();
+			System.setProperty("webdriver.chrome.driver", properties.getProperty("ChromeDriverPath"));
+			// WebDriverManager.chromedriver().setup();
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("--headless");
 			driver = new ChromeDriver(chromeOptions);
